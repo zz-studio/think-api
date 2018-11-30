@@ -29,14 +29,14 @@ thinp-api 是给开发者提供的一套针对thinkphp的API扩展工具，帮�
 
 ```txt
 "require": {
-    "zewail/think-api": "1.1.*@beta"
+    "zzstudio/think-api": "v1.0"
 }
 ```
 
 或者你可以在命令行执行 `composer require` 命令
 
 ```txt
-composer require zewail/think-api:1.1.x@beta
+composer require zzstudio/think-api
 ```
 
 ## 路由
@@ -47,7 +47,7 @@ composer require zewail/think-api:1.1.x@beta
 使用`think-api`的版本管理方法来创建版本
 
 ```php
-$api = new \Zewail\Api\Routing\Router;
+$api = new \think\Api\Routing\Router;
 
 $api->version('v1', function () {
 	// TODO 可以是thinkphp自带的路由
@@ -57,7 +57,7 @@ $api->version('v1', function () {
 或者使用门面（Facede）
 
 ```php
-use Zewail\Api\Facades\ApiRoute;
+use think\Api\Facades\ApiRoute;
 
 ApiRoute::version('v1', function(){
     // TODO 可以是thinkphp自带的路由
@@ -108,13 +108,13 @@ http://example.com/new/102?version=v2
 
 响应生成器提供了一个流畅的接口去方便的建立一个定制化的响应
 
-要利用响应生成器, 你的控制器需要使用`Zewail\Api\Api` trait, 可以建立一个通用控制器，然后你的所有的 API 控制器都继承它。
+要利用响应生成器, 你的控制器需要使用`think\Api\Api` trait, 可以建立一个通用控制器，然后你的所有的 API 控制器都继承它。
 
 ```php
 namespace app\index\controller;
 
 use think\Controller;
-use Zewail\Api\Api;
+use think\Api\Api;
 
 class BaseController extends Controller
 {
@@ -129,7 +129,7 @@ class BaseController extends Controller
 ```php
 namespace app\index\controller;
 
-use Zewail\Api\Facades\Response as ApiResponse;
+use think\Api\Facades\Response as ApiResponse;
 
 class IndexController
 {
@@ -177,11 +177,11 @@ return ApiResponse::paginator($users);
 ```
 #### 使用别名生成响应
 
-捕获错误响应需要接管系统的异常处理机制，将系统`config/app.php`中的 `exception_handle`配置为`Zewail\Api\Exceptions\handleException`
+捕获错误响应需要接管系统的异常处理机制，将系统`config/app.php`中的 `exception_handle`配置为`think\Api\Exceptions\handleException`
 
 ```php
 // 异常处理handle类 留空使用 \think\exception\Handle
-'exception_handle'       => 'Zewail\Api\Exceptions\handleException',
+'exception_handle'       => 'think\Api\Exceptions\handleException',
 ```
 
 返回一个错误响应
@@ -395,9 +395,9 @@ JWT相关知识大家百度一下吧，网上很多，直接上代码
 namespace app\index\controller;
 
 use app\index\model\User;
-use Zewail\Api\Facades\Response;
-use Zewail\Api\Facades\JWT;
-use Zewail\Api\Exceptions\JWTException;
+use think\Api\Facades\Response;
+use think\Api\Facades\JWT;
+use think\Api\Exceptions\JWTException;
 
 class Authenticate
 {
@@ -506,7 +506,7 @@ $payload = JWT::decode($token);
 - `resources.php`：过滤管理器配置
 - `jwt.php`：JWT相关配置
 
-配置文件可以在`vendor/zewail/think-api/config`目录下找到，也可以手动创建它们
+配置文件可以在`vendor/zzstudio/think-api/config`目录下找到，也可以手动创建它们
 
 ### api.php
 
